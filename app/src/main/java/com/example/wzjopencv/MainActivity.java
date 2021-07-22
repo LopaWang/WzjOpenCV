@@ -2,10 +2,13 @@ package com.example.wzjopencv;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,9 +51,45 @@ public class MainActivity extends AppCompatActivity {
 
         tv.setOnClickListener(v -> {
             //识别人脸，保存人脸
-            faceDetection.faceDetectionSaveInfo(bitmap);
+//            faceDetection.faceDetectionSaveInfo(bitmap);
+//            imageView.setImageBitmap(bitmap);
+
+            //逆世界
+//            bitmap = NDKBitmapUtils.againstWorld(bitmap);
+            //浮雕
+//            bitmap = NDKBitmapUtils.anaglyph(bitmap);
+
+            //马赛克
+//            bitmap = NDKBitmapUtils.mosaic(bitmap);
+
+            //高斯模糊
+//            bitmap = NDKBitmapUtils.groundGlass(bitmap);
+
+            //油画效果
+//            bitmap = NDKBitmapUtils.oilPainting(bitmap);
+
+
+            //灰度处理
+            bitmap = NDKBitmapUtils.garyOptimize(bitmap);
+
             imageView.setImageBitmap(bitmap);
         });
+
+
+//        readStream();
+    }
+
+    private void readStream() {
+        TypedValue typedValue = new TypedValue();
+        @SuppressLint("ResourceType") InputStream is = getResources().openRawResource(R.mipmap.psu,typedValue);
+
+        try {
+            int first = is.read();
+            int second = is.read();
+            Log.e("TAG", "readStream: first = " + first + ";  second = " + second);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void copyCascadeFile() {
